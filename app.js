@@ -4,6 +4,16 @@ const listEditRouter = require('./list-edit-router');
 const express = require('express');
 const app = express();
 
+// Middleware para gestionar métodos HTTP válidos
+app.use((req, res, next) => {
+  const validMethods = ['GET', 'POST', 'PUT', 'DELETE'];
+  if (!validMethods.includes(req.method)) {
+    return res.status(400).send("Bad Request: Método HTTP no válido");
+  }
+  next();
+});
+
+
 const tasks = [
   {
     id: '1',
@@ -41,4 +51,8 @@ app.get('/tasks', (req, res) => {
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
+});
+
+app.get("/this-should-exists", (req, res) => {
+  res.status(404).send("Not found");
 });
