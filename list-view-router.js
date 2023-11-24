@@ -13,10 +13,12 @@ listViewRouter.use('/:parametro', (req, res, next) => {
 
 listViewRouter.get('/completed-tasks', (req, res) => {
   // Lógica para listar tareas completas
+  res.json({ completedTasks: tasks.filter(task => task.isCompleted) });
 });
 
 listViewRouter.get('/incomplete-tasks', (req, res) => {
   // Lógica para listar tareas incompletas
+  res.json({ incompleteTasks: tasks.filter(task => !task.isCompleted) });
 });
 
 module.exports = listViewRouter;
